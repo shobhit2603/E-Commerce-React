@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import products from "../data/products";
+import { setStorageItem } from "../utils/storage";
 
 export default function Products() {
+  setStorageItem("products", products);
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
       {products.map(({ id, image, name, category, price, discountPrice }) => (

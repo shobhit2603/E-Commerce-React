@@ -5,7 +5,7 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <main className="select-none">
+      <main>
         <Outlet />
       </main>
     </>
