@@ -20,7 +20,7 @@ const navLinks = [
 
 const Navbar = () => {
   return (
-    <nav className="flex items-center justify-between bg-violet-300 border-b-2 p-5 border-neutral-500">
+    <nav className="flex items-center justify-between border-b-2 p-5 border-neutral-500 bg-amber-200">
       <h1 className="font-medium">
         <Link to="/">E-Commerce</Link>
       </h1>

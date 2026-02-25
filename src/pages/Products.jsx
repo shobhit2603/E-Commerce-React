@@ -11,7 +11,7 @@ export default function Products() {
         <Link
           to={`/product/${id}`}
           key={id}
-          className="border p-4 rounded-xl shadow hover:shadow-lg transition-shadow duration-300 bg-white"
+          className="border p-4 rounded-xl shadow hover:shadow-lg transition-shadow duration-300 bg-"
         >
           <img
             src={image}

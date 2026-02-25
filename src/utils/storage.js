@@ -1,3 +1,7 @@
+const CART_STORAGE_KEY = "v_shop_cart";
+const WISHLIST_STORAGE_KEY = "v_shop_wishlist";
+const ORDERS_STORAGE_KEY = "v_shop_orders";
+
 export const setStorageItem = (key, value) => {
   if (!key || !value) return "Please provide the key and value";
   localStorage.setItem(key, JSON.stringify(value));
