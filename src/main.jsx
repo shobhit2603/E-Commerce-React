@@ -9,6 +9,10 @@ import Product from "./components/Product";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreateProduct from "./pages/CreateProduct";
+import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
+import { ThemeProvider } from "./context/ThemeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -43,6 +47,18 @@ const router = createBrowserRouter([
             path: "/products",
             element: <Products />,
           },
+          {
+            path: "/products/create",
+            element: <CreateProduct />,
+          },
+          {
+            path: "/cart",
+            element: <Cart />,
+          },
+          {
+            path: "/wishlist",
+            element: <Wishlist />,
+          },
         ],
       },
     ],
@@ -51,6 +67,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>,
 );

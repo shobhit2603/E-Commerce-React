@@ -1,21 +1,21 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 * {
   @apply select-none;
 }
 
 html,
 body {
-    scrollbar-width: none;
-    /* Firefox */
-    -ms-overflow-style: none;
-    /* IE and old Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and old Edge */
 }
 
 /* Chrome, Safari, Edge (WebKit-based) */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-    display: none;
+  width: 0;
+  height: 0;
+  display: none;
 }
