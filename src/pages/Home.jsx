@@ -1,83 +1,153 @@
+import {
+  ArrowRight,
+  Cpu,
+  Headphones,
+  Monitor,
+  Shield,
+  Smartphone,
+  Zap,
+} from "lucide-react";
 import { Link } from "react-router-dom";
-import Button from "../components/common/Button";
-import { ArrowRight, ShieldCheck, Zap, Truck } from "lucide-react";
+
+const categories = [
+  {
+    name: "Laptops & PCs",
+    icon: Monitor,
+    color: "text-lime-400",
+    bg: "bg-lime-400/10",
+  },
+  {
+    name: "Smartphones",
+    icon: Smartphone,
+    color: "text-sky-400",
+    bg: "bg-sky-400/10",
+  },
+  {
+    name: "Audio Gear",
+    icon: Headphones,
+    color: "text-pink-500",
+    bg: "bg-pink-500/10",
+  },
+  {
+    name: "PC Components",
+    icon: Cpu,
+    color: "text-blue-500",
+    bg: "bg-blue-500/10",
+  },
+];
 
 const features = [
   {
-    icon: <Zap className="w-6 h-6" />,
-    title: "Ultra Fast",
-    desc: "Latest generation tech with blazing performance.",
+    icon: Zap,
+    title: "Lightning Fast Delivery",
+    desc: "Get your tech gear delivered at warp speed.",
   },
   {
-    icon: <ShieldCheck className="w-6 h-6" />,
+    icon: Shield,
     title: "Secure Checkout",
-    desc: "100% protected payments & data safety.",
+    desc: "Your data is encrypted and completely safe with us.",
   },
   {
-    icon: <Truck className="w-6 h-6" />,
-    title: "Free Shipping",
-    desc: "On all premium orders globally.",
+    icon: Cpu,
+    title: "Top Tier Brands",
+    desc: "We only stock the best hardware in the industry.",
   },
 ];
 
 const Home = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-linear-to-b from-violet-50 to-white dark:from-gray-900 dark:to-gray-950 pt-20 pb-32 overflow-hidden transition-colors duration-300">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80')] opacity-[0.03] dark:opacity-5 bg-cover bg-center"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col items-center text-center">
-          <span className="inline-block py-1.5 px-3 rounded-full bg-violet-100 dark:bg-violet-900/50 text-violet-700 dark:text-violet-300 text-sm tracking-wide font-bold mb-6 animate-pulse transition-colors">
-            NEW ARRIVALS 2026
+    <div className="bg-black text-white m-2 rounded-xl min-h-screen px-6 md:px-20 py-20 flex flex-col gap-32 overflow-hidden">
+      <section className="flex flex-col items-center justify-center text-center mt-10 md:mt-20 relative">
+        <div className="absolute w-[800px] h-[800px] bg-lime-500/10 blur-[120px] rounded-full -top-40 -z-10 animate-pulse hidden md:block" />
+
+        <h1 className="text-5xl md:text-8xl font-bold tracking-tighter leading-none mb-6">
+          Equip Your <br className="hidden md:block" />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-lime-400 to-sky-400">
+            Digital Workflow.
           </span>
-          <h1 className="text-5xl md:text-7xl font-semibold text-gray-900 dark:text-gray-50 tracking-tight mb-8 leading-tight max-w-4xl transition-colors">
-            Upgrade Your Setup With{" "}
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-600 to-indigo-600">
-              Premium Tech
-            </span>
-          </h1>
-          <p className="text-xl text-gray-500 dark:text-gray-400 max-w-2xl mb-10 leading-relaxed transition-colors">
-            Discover our curated collection of high-performance gear designed
-            for creators, developers, and tech enthusiasts.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link to="/products">
-              <Button className="px-8 py-4 text-lg group">
-                Shop Now
-                <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </Link>
-            <Link to="/about">
-              <Button variant="outline" className="px-8 py-4 text-lg">
-                Learn More
-              </Button>
-            </Link>
-          </div>
+        </h1>
+        <p className="text-gray-400 text-lg md:text-xl max-w-2xl mb-10 leading-relaxed font-medium">
+          The ultimate destination for developers, creators, and tech
+          enthusiasts. Discover premium hardware designed to elevate your craft.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <Link
+            to="/products"
+            className="group flex items-center justify-center gap-2 border border-lime-400 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 hover:scale-105"
+          >
+            Shop Now
+            <ArrowRight
+              className="group-hover:translate-x-1 transition-transform"
+              size={20}
+            />
+          </Link>
+          <Link
+            to="/about"
+            className="flex items-center justify-center px-8 py-4 rounded-full font-bold text-lg border border-gray-800 text-white hover:border-gray-600 transition-all duration-300 hover:scale-105"
+          >
+            Learn More
+          </Link>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white dark:bg-gray-950 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {features.map((f, i) => (
+      <section className="flex flex-col gap-8">
+        <div className="flex items-end justify-between">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Shop by Category
+          </h2>
+          <Link
+            to="/products"
+            className="text-gray-400 hover:text-white transition-colors hidden md:flex items-center gap-1 group"
+          >
+            View All{" "}
+            <ArrowRight
+              className="group-hover:translate-x-1 transition-transform"
+              size={16}
+            />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          {categories.map((cat, index) => {
+            const Icon = cat.icon;
+            return (
               <div
-                key={i}
-                className="flex flex-col items-center text-center p-8 rounded-3xl bg-gray-50 dark:bg-gray-900 hover:bg-violet-50 dark:hover:bg-gray-800 transition-colors duration-300 border border-transparent hover:border-violet-100 dark:hover:border-gray-700 shadow-sm"
+                key={index}
+                className="group flex flex-col items-center justify-center p-8 bg-zinc-950 rounded-2xl border border-gray-900 hover:border-gray-800 transition-all duration-300 cursor-pointer hover:-translate-y-1"
               >
-                <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-2xl flex items-center justify-center text-violet-600 dark:text-violet-400 mb-6 shadow-sm transition-colors">
-                  {f.icon}
+                <div
+                  className={`p-4 rounded-full ${cat.bg} ${cat.color} mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <Icon size={32} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-3 transition-colors">
-                  {f.title}
+                <h3 className="font-semibold text-lg text-gray-200 group-hover:text-white transition-colors">
+                  {cat.name}
                 </h3>
-                <p className="text-gray-500 dark:text-gray-400 transition-colors">
-                  {f.desc}
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-gray-800 pt-16">
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <div key={index} className="flex flex-col items-start gap-4 p-6">
+              <div className="p-3 bg-white/5 rounded-xl border border-gray-800 text-lime-400">
+                <Icon size={24} />
+              </div>
+              <div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed">
+                  {feature.desc}
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          );
+        })}
       </section>
     </div>
   );

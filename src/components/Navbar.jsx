@@ -1,9 +1,9 @@
-import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Heart, Store, Sun, Moon } from "lucide-react";
+import { ArrowRight, Heart, ShoppingCart, Store } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart";
 import { useWishlist } from "../hooks/useWishlist";
-import { useTheme } from "../context/ThemeContext";
-import Badge from "./common/Badge";
+import { useAuth } from "../context/AuthContext";
+import { useToast } from "../context/ToastContext";
 
 const navLinks = [
   { name: "Home", link: "/", id: 1 },
@@ -12,66 +12,92 @@ const navLinks = [
 ];
 
 const Navbar = () => {
-  const { count } = useCart();
-  const { wishlist } = useWishlist();
-  const { theme, toggleTheme } = useTheme();
-  const location = useLocation();
+  const { count: cartCount } = useCart();
+  const { count: wishlistCount } = useWishlist();
+  const { isAuthenticated, logout } = useAuth();
+  const { addToast } = useToast();
+  const navigate = useNavigate();
+
+  const handleProtectedAction = (e, path, actionName) => {
+    if (!isAuthenticated) {
+      e.preventDefault();
+      addToast(`You must be logged in to view ${actionName}.`, "error");
+    } else if (path) {
+      navigate(path);
+    }
+  };
+
+  const handleLogout = () => {
+    logout();
+    addToast("Successfully logged out", "success");
+    navigate("/");
+  };
 
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between border-b bg-white/80 dark:bg-gray-950/80 backdrop-blur-md px-4 py-4 sm:px-8 border-gray-100 dark:border-gray-800 shadow-sm transition-colors duration-300">
-      <Link to="/" className="flex items-center gap-2 group">
-        <div className="bg-violet-600 text-white p-2 rounded-xl group-hover:bg-violet-700 transition-colors shadow-sm">
-          <Store className="w-5 h-5" />
-        </div>
-        <h1 className="font-extrabold text-xl tracking-tight text-gray-900 dark:text-gray-50 transition-colors">
-          Tech<span className="text-violet-600">Store</span>
+    <nav className="flex items-center justify-between bg-black text-white px-20 py-3 m-2 rounded-xl">
+      <Link to="/">
+        <h1 className="group text-2xl font-medium flex items-center justify-center gap-2">
+          <span className="text-lime-400 group-hover:scale-110 transition-transform duration-300">
+            <Store />
+          </span>
+          ShopIt
         </h1>
       </Link>
-
-      <ul className="hidden md:flex gap-8 font-medium text-sm text-gray-600 dark:text-gray-300">
-        {navLinks.map(({ id, link, name }) => {
-          const isActive =
-            location.pathname === link ||
-            (link !== "/" && location.pathname.startsWith(link));
-          return (
-            <li key={id}>
-              <Link
-                to={link}
-                className={`transition-colors ${isActive ? "text-violet-600 dark:text-violet-400 font-bold" : "hover:text-violet-600 dark:hover:text-violet-400"}`}
-              >
-                {name}
-              </Link>
-            </li>
-          );
-        })}
+      <ul className="flex items-center justify-center gap-10 font-medium">
+        {navLinks.map((link) => (
+          <li
+            key={link.id}
+            className="hover:text-sky-400 transition-colors duration-300 cursor-pointer"
+          >
+            <Link to={link.link}>{link.name}</Link>
+          </li>
+        ))}
       </ul>
-
-      <div className="flex items-center gap-2 sm:gap-4">
-        <button
-          onClick={toggleTheme}
-          className="p-2 text-gray-500 dark:text-gray-400 hover:text-amber-500 dark:hover:text-blue-400 hover:bg-amber-50 dark:hover:bg-blue-900/20 rounded-full transition-all cursor-pointer"
-          aria-label="Toggle theme"
+      <div className="flex items-center justify-center gap-5">
+        <div
+          onClick={(e) => handleProtectedAction(e, "/wishlist", "wishlist")}
+          className="relative hover:text-red-400 transition-colors duration-300 cursor-pointer flex items-center justify-center"
         >
-          {theme === "dark" ? (
-            <Sun className="w-5 h-5" />
-          ) : (
-            <Moon className="w-5 h-5" />
+          <Heart size={20} />
+          {wishlistCount > 0 && (
+            <span className="absolute -top-2 -right-3 bg-red-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              {wishlistCount}
+            </span>
           )}
-        </button>
-        <Link
-          to="/wishlist"
-          className="relative p-2 text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-full transition-all"
+        </div>
+        <div
+          onClick={(e) => handleProtectedAction(e, "/cart", "cart")}
+          className="relative hover:text-green-400 transition-colors duration-300 cursor-pointer flex items-center justify-center"
         >
-          <Heart className="w-6 h-6" />
-          <Badge count={wishlist.length} />
-        </Link>
-        <Link
-          to="/cart"
-          className="relative p-2 text-gray-500 dark:text-gray-400 hover:text-violet-600 dark:hover:text-violet-400 hover:bg-violet-50 dark:hover:bg-violet-900/20 rounded-full transition-all"
-        >
-          <ShoppingCart className="w-6 h-6" />
-          <Badge count={count} />
-        </Link>
+          <ShoppingCart size={20} />
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-3 bg-lime-400 text-black text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </div>
+
+        {isAuthenticated ? (
+          <button
+            onClick={handleLogout}
+            className="group flex items-center justify-center gap-2 font-medium hover:text-red-400 transition-colors duration-300 cursor-pointer"
+          >
+            Logout{" "}
+            <span className="group-hover:translate-x-1 transition-transform duration-300">
+              <ArrowRight size={20} />
+            </span>
+          </button>
+        ) : (
+          <Link
+            to="/login"
+            className="group flex items-center justify-center gap-2 font-medium hover:text-lime-400 transition-colors duration-300 cursor-pointer"
+          >
+            Login{" "}
+            <span className="group-hover:translate-x-1 transition-transform duration-300">
+              <ArrowRight size={20} />
+            </span>
+          </Link>
+        )}
       </div>
     </nav>
   );

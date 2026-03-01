@@ -1,30 +1,35 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
-  PRODUCTS_STORAGE_KEY,
   getStorageItem,
   setStorageItem,
+  PRODUCTS_STORAGE_KEY,
 } from "../utils/storage";
-import defaultProducts from "../data/products";
 
 export const useProducts = () => {
   const [products, setProducts] = useState(() => {
-    const stored = getStorageItem(PRODUCTS_STORAGE_KEY);
-    if (stored && stored.length > 0) return stored;
-    return defaultProducts;
+    const storedProducts = getStorageItem(PRODUCTS_STORAGE_KEY);
+    return storedProducts === null ? [] : storedProducts;
   });
 
-  useEffect(() => {
-    setStorageItem(PRODUCTS_STORAGE_KEY, products);
-  }, [products]);
-
   const addProduct = (productData) => {
-    const newProduct = {
-      id: Date.now(),
-      ...productData,
-      slug: productData.name.toLowerCase().replace(/\s+/g, "-"),
-    };
-    setProducts((prev) => [newProduct, ...prev]);
+    const id = Date.now().toString();
+    const slug = productData.name.toLowerCase().replace(/\s+/g, "-");
+    const newProduct = { ...productData, id, slug };
+
+    setProducts((prev) => {
+      const updatedProducts = [newProduct, ...prev];
+      setStorageItem(PRODUCTS_STORAGE_KEY, updatedProducts);
+      return updatedProducts;
+    });
   };
 
-  return { products, addProduct };
+  const deleteProduct = (id) => {
+    setProducts((prev) => {
+      const updatedProducts = prev.filter((p) => p.id !== id);
+      setStorageItem(PRODUCTS_STORAGE_KEY, updatedProducts);
+      return updatedProducts;
+    });
+  };
+
+  return { products, addProduct, deleteProduct };
 };

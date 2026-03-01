@@ -1,82 +1,79 @@
-import { Target, Rocket } from "lucide-react";
+import { Code2, Database, Layout, Terminal } from "lucide-react";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950 transition-colors duration-300">
-      {/* Header */}
-      <section className="bg-gray-900 text-white py-24 relative overflow-hidden">
-        <div className="absolute inset-0 bg-violet-600/20 mix-blend-multiply"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
-            About TechStore
+    <div className="bg-black text-white m-2 rounded-xl min-h-[85vh] px-6 md:px-20 py-20 flex flex-col items-center justify-center relative overflow-hidden">
+      {/* Subtle Background Glow */}
+      <div className="absolute w-[600px] h-[600px] bg-sky-500/10 blur-[120px] rounded-full -top-40 -z-10 animate-pulse hidden md:block" />
+
+      <div className="max-w-4xl w-full flex flex-col gap-12">
+        {/* Intro Section */}
+        <div className="text-center md:text-left">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter mb-6">
+            Building scalable <br className="hidden md:block" />
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-sky-400 to-lime-400">
+              web solutions.
+            </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            We are passionate about connecting people with the technology that
-            empowers their creativity and productivity.
+          <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">
+            Hi, I'm a developer passionate about crafting high-performance,
+            beautiful, and intuitive user interfaces. I specialize in turning
+            complex problems into elegant digital experiences.
           </p>
         </div>
-      </section>
 
-      {/* Content */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 tracking-tight transition-colors">
-                Our Story
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed transition-colors">
-                Founded in 2026, TechStore began with a simple mission: to
-                curate the best tech products from around the world and make
-                them accessible to everyone. We noticed that high-end gear was
-                often buried under overwhelming noise.
-              </p>
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed transition-colors">
-                We bridge the gap between quality and accessibility. Every
-                product in our store is hand-picked, tested, and vetted by our
-                team of hardware enthusiasts.
-              </p>
+        <div className="w-full h-px bg-gray-800" />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="flex gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
-                  <div className="text-violet-600 dark:text-violet-400">
-                    <Target className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-gray-100 transition-colors">
-                      Our Mission
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors">
-                      Elevating everyday experiences through technology.
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-4 p-4 rounded-2xl bg-gray-50 dark:bg-gray-900 border border-gray-100 dark:border-gray-800 transition-colors duration-300">
-                  <div className="text-violet-600 dark:text-violet-400">
-                    <Rocket className="w-8 h-8" />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 dark:text-gray-100 transition-colors">
-                      Our Vision
-                    </h4>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 transition-colors">
-                      To be the most trusted hub for tech enthusiasts globally.
-                    </p>
-                  </div>
-                </div>
-              </div>
+        {/* Project Details */}
+        <div className="flex flex-col md:flex-row gap-10 items-start">
+          <div className="flex-1">
+            <h2 className="text-2xl font-bold mb-4 text-gray-200">
+              About This Project
+            </h2>
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed">
+              ShopIt is a conceptual e-commerce web store tailored specifically
+              for tech enthusiasts and developers. It is built entirely on the
+              frontend using{" "}
+              <span className="text-sky-400 font-semibold">React.js</span> to
+              deliver a lightning-fast shopping experience.
+            </p>
+            <p className="text-gray-400 text-base md:text-lg leading-relaxed mt-4">
+              To simulate a full shopping experience without a backend, this
+              project cleverly leverages{" "}
+              <span className="text-lime-400 font-semibold">Local Storage</span>{" "}
+              for robust state management, handling carts, wishlists, and user
+              sessions seamlessly on the client side.
+            </p>
+          </div>
+
+          <div className="flex-1 grid grid-cols-2 gap-4 w-full">
+            <div className="flex flex-col items-center justify-center text-center p-6 bg-zinc-950/50 rounded-2xl border border-gray-900 hover:border-gray-700 transition-colors">
+              <Code2 className="text-sky-400 mb-3" size={28} />
+              <span className="text-sm font-medium text-gray-300">
+                React.js
+              </span>
             </div>
-            <div className="relative mt-8 md:mt-0">
-              <div className="absolute inset-0 bg-linear-to-tr from-violet-100 to-indigo-50 dark:from-violet-900/30 dark:to-indigo-900/30 rounded-3xl transform translate-x-4 translate-y-4 -z-10 transition-colors"></div>
-              <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80"
-                alt="Our Team"
-                className="rounded-3xl shadow-xl w-full h-auto object-cover border border-white/50"
-              />
+            <div className="flex flex-col items-center justify-center text-center p-6 bg-zinc-950/50 rounded-2xl border border-gray-900 hover:border-gray-700 transition-colors">
+              <Layout className="text-lime-400 mb-3" size={28} />
+              <span className="text-sm font-medium text-gray-300">
+                Tailwind CSS
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center p-6 bg-zinc-950/50 rounded-2xl border border-gray-900 hover:border-gray-700 transition-colors">
+              <Database className="text-pink-500 mb-3" size={28} />
+              <span className="text-sm font-medium text-gray-300">
+                Local Storage
+              </span>
+            </div>
+            <div className="flex flex-col items-center justify-center text-center p-6 bg-zinc-950/50 rounded-2xl border border-gray-900 hover:border-gray-700 transition-colors">
+              <Terminal className="text-blue-500 mb-3" size={28} />
+              <span className="text-sm font-medium text-gray-300">
+                Tech Centric
+              </span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };

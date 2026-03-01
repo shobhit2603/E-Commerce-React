@@ -1,20 +1,18 @@
-import { createRoot } from "react-dom/client";
 import React from "react";
+import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App";
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Products from "./pages/Products";
-import Product from "./components/Product";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
-import CreateProduct from "./pages/CreateProduct";
-import Cart from "./pages/Cart";
-import Wishlist from "./pages/Wishlist";
-import { ThemeProvider } from "./context/ThemeContext";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import App from "./App.jsx";
+import About from "./pages/About.jsx";
+import Products from "./pages/Products.jsx";
+import Product from "./pages/Product.jsx";
+import Home from "./pages/Home.jsx";
+import Cart from "./pages/Cart.jsx";
+import Wishlist from "./pages/Wishlist.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import Login from "./pages/Login.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
+import { ToastProvider } from "./context/ToastContext.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +27,10 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "/products",
+        element: <Products />,
+      },
+      {
         path: "/product/:id",
         element: <Product />,
       },
@@ -37,20 +39,8 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: "*",
-        element: <NotFound />,
-      },
-      {
         element: <ProtectedRoute />,
         children: [
-          {
-            path: "/products",
-            element: <Products />,
-          },
-          {
-            path: "/products/create",
-            element: <CreateProduct />,
-          },
           {
             path: "/cart",
             element: <Cart />,
@@ -67,8 +57,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <RouterProvider router={router} />
-    </ThemeProvider>
+    <AuthProvider>
+      <ToastProvider>
+        <RouterProvider router={router} />
+      </ToastProvider>
+    </AuthProvider>
   </React.StrictMode>,
 );
